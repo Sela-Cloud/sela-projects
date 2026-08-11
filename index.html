@@ -3,37 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirecting...</title>
-    <script>
-        // Execute as soon as the script loads
-        (function() {
-            // Get the 'path' parameter from the URL string
-            const urlParams = new URLSearchParams(window.location.search);
-            const targetPath = urlParams.get('path');
-
-            if (targetPath) {
-                // Ensure the path doesn't start with a slash if you want it to be relative 
-                // to the current repository directory
-                const cleanPath = targetPath.startsWith('/') ? targetPath.substring(1) : targetPath;
-                
-                // Redirect without keeping this root page in the browser's back history
-                window.location.replace(cleanPath);
-            }
-        })();
-    </script>
+    <title>Project Directory</title>
     <style>
-        body { 
-            font-family: system-ui, -apple-system, sans-serif; 
-            text-align: center; 
-            padding-top: 20vh; 
-            color: #333; 
-            background-color: #f9f9f9;
+        :root {
+            --bg-color: #f4f4f9;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --accent: #0056b3;
+            --hover-bg: #eaf2fa;
         }
-        .message { margin-top: 15px; color: #666; }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        p.subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 16px;
+        }
+
+        .project-card {
+            background-color: var(--card-bg);
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            text-decoration: none;
+            color: var(--text-main);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: var(--accent);
+            background-color: var(--hover-bg);
+        }
+
+        .project-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--accent);
+        }
+
+        .project-path {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: monospace;
+        }
     </style>
 </head>
 <body>
-    <h2>Routing to destination...</h2>
-    <p class="message">If you are not redirected automatically, check the URL provided.</p>
+
+    <div class="container">
+        <h1>Organization Projects</h1>
+        <p class="subtitle">Select a project to view its documentation</p>
+
+        <!-- The grid where JavaScript will inject the project cards -->
+        <div id="project-list" class="project-grid"></div>
+    </div>
+
+    <script>
+        // 1. Define your projects here
+        // Add new objects to this array whenever you add a new folder
+        const projects = [
+            { 
+                name: "Neyyar", 
+                path: "projects/Neyyar",
+                description: "Main documentation for Neyyar"
+            },
+            { 
+                name: "Alpha API", 
+                path: "projects/Alpha",
+                description: "Backend services API specs"
+            },
+            { 
+                name: "Frontend Dashboard", 
+                path: "projects/Dashboard",
+                description: "React dashboard components"
+            }
+        ];
+
+        // 2. Automatically generate the UI
+        const listContainer = document.getElementById('project-list');
+
+        projects.forEach(project => {
+            // Create the link container
+            const card = document.createElement('a');
+            // Using standard relative paths. It will automatically route to projects/Name/index.html
+            card.href = project.path; 
+            card.className = 'project-card';
+
+            // Create the title
+            const title = document.createElement('div');
+            title.className = 'project-title';
+            title.textContent = project.name;
+
+            // Create the path/description text
+            const pathText = document.createElement('div');
+            pathText.className = 'project-path';
+            pathText.textContent = `/${project.path}`;
+
+            // Assemble the card
+            card.appendChild(title);
+            card.appendChild(pathText);
+            listContainer.appendChild(card);
+        });
+    </script>
 </body>
 </html>
