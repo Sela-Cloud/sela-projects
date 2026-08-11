@@ -1,349 +1,220 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SELA | Engineering Projects</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SELA Projects</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<style>
-:root{
-    --bg:#07111f;
-    --surface:rgba(255,255,255,.06);
-    --border:rgba(255,255,255,.12);
-    --text:#f4f7fb;
-    --muted:#9eb0c7;
-    --primary:#27c4ff;
-    --secondary:#6f7cff;
-    --success:#2dd4bf;
-}
+        :root {
+            --bg: #fafafa;
+            --card: #ffffff;
+            --border: #e5e7eb;
+            --text: #111827;
+            --muted: #6b7280;
+            --accent: #2563eb;
+        }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+        body {
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                Roboto, Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+        }
 
-body{
-    font-family:Inter,sans-serif;
-    background:var(--bg);
-    color:var(--text);
-    min-height:100vh;
-    overflow-x:hidden;
-}
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
 
-body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    background:
-    radial-gradient(circle at 15% 20%,rgba(39,196,255,.25),transparent 35%),
-    radial-gradient(circle at 85% 25%,rgba(111,124,255,.22),transparent 40%),
-    radial-gradient(circle at 50% 80%,rgba(45,212,191,.15),transparent 40%);
-    animation:move 18s ease infinite alternate;
-    z-index:-2;
-}
+        header {
+            margin-bottom: 48px;
+        }
 
-body::after{
-    content:"";
-    position:fixed;
-    inset:0;
-    background:
-        linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
-    background-size:40px 40px;
-    z-index:-1;
-}
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
 
-@keyframes move{
-    from{transform:translateY(0);}
-    to{transform:translateY(-60px);}
-}
+        .subtitle {
+            color: var(--muted);
+            font-size: 1rem;
+        }
 
-.container{
-    width:min(1200px,92%);
-    margin:auto;
-}
+        .search {
+            width: 100%;
+            margin: 40px 0;
+        }
 
-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:28px 0;
-}
+        .search input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+            background: white;
+        }
 
-.logo{
-    font-size:32px;
-    font-weight:800;
-    letter-spacing:2px;
-}
+        .search input:focus {
+            border-color: var(--accent);
+        }
 
-.logo span{
-    color:var(--primary);
-}
+        .projects {
+            display: grid;
+            gap: 16px;
+        }
 
-.tag{
-    color:var(--muted);
-    font-size:.95rem;
-}
+        .project {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: .2s ease;
+        }
 
-.hero{
-    padding:70px 0 50px;
-}
+        .project:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
 
-.hero h1{
-    font-size:clamp(2.8rem,5vw,4.6rem);
-    line-height:1.05;
-    margin-bottom:20px;
-}
+        .project h3 {
+            margin-bottom: 6px;
+            font-size: 18px;
+        }
 
-.hero p{
-    max-width:720px;
-    color:var(--muted);
-    line-height:1.8;
-    font-size:1.05rem;
-}
+        .project p {
+            color: var(--muted);
+            font-size: 14px;
+        }
 
-.search{
-    margin-top:40px;
-    display:flex;
-    gap:15px;
-    flex-wrap:wrap;
-}
+        footer {
+            margin-top: 60px;
+            color: var(--muted);
+            font-size: 14px;
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+        }
 
-.search input{
-    flex:1;
-    min-width:280px;
-    background:var(--surface);
-    border:1px solid var(--border);
-    color:white;
-    border-radius:14px;
-    padding:16px 18px;
-    font-size:16px;
-    outline:none;
-    backdrop-filter:blur(12px);
-}
+        .hidden {
+            display: none;
+        }
 
-.stats{
-    display:flex;
-    gap:20px;
-    margin:60px 0;
-    flex-wrap:wrap;
-}
-
-.stat{
-    flex:1;
-    min-width:180px;
-    padding:22px;
-    background:var(--surface);
-    border:1px solid var(--border);
-    border-radius:18px;
-    backdrop-filter:blur(16px);
-}
-
-.stat h2{
-    color:var(--primary);
-    margin-bottom:6px;
-}
-
-.section-title{
-    margin:30px 0;
-    font-size:28px;
-}
-
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:24px;
-    margin-bottom:80px;
-}
-
-.card{
-    background:var(--surface);
-    border:1px solid var(--border);
-    border-radius:22px;
-    padding:28px;
-    transition:.35s;
-    cursor:pointer;
-    backdrop-filter:blur(20px);
-}
-
-.card:hover{
-    transform:translateY(-8px);
-    border-color:var(--primary);
-    box-shadow:0 15px 50px rgba(39,196,255,.15);
-}
-
-.icon{
-    width:58px;
-    height:58px;
-    border-radius:15px;
-    display:grid;
-    place-items:center;
-    font-size:28px;
-    background:linear-gradient(135deg,var(--primary),var(--secondary));
-    margin-bottom:18px;
-}
-
-.card h3{
-    margin-bottom:10px;
-}
-
-.card p{
-    color:var(--muted);
-    line-height:1.7;
-    margin-bottom:25px;
-}
-
-.open{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    color:var(--primary);
-    font-weight:600;
-}
-
-footer{
-    padding:35px 0 50px;
-    text-align:center;
-    color:var(--muted);
-    border-top:1px solid rgba(255,255,255,.08);
-}
-
-@media(max-width:700px){
-
-.hero{
-padding-top:30px;
-}
-
-.stats{
-flex-direction:column;
-}
-
-}
-</style>
+        code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 
 <body>
 
 <div class="container">
 
-<header>
+    <header>
+        <h1>SELA Projects</h1>
+        <p class="subtitle">
+            Internal engineering projects and tools.
+        </p>
+    </header>
 
-<div>
-<div class="logo">SE<span>LA</span></div>
-<div class="tag">Engineering Project Portal</div>
-</div>
+    <div class="search">
+        <input
+            id="search"
+            type="text"
+            placeholder="Search projects..."
+        >
+    </div>
 
-<div class="tag">
-Fuel Tech Growth
-</div>
+    <section class="projects" id="projects">
 
-</header>
+        <div class="project"
+             data-name="Neyyar"
+             onclick="openProject('Neyyar')">
 
-<section class="hero">
+            <h3>Neyyar</h3>
+            <p>Internal engineering platform.</p>
 
-<h1>
-Internal Engineering Projects
-</h1>
+        </div>
 
-<p>
-Welcome to the centralized portal for engineering tools, proof-of-concepts, cloud utilities, AI initiatives, and internal applications. Browse projects or directly navigate using the URL format:
-<strong>/ProjectName</strong>.
-</p>
+        <!--
+        Duplicate projects like this:
 
-<div class="search">
-<input id="search" type="text" placeholder="Search projects...">
-</div>
+        <div class="project"
+             data-name="MyProject"
+             onclick="openProject('MyProject')">
 
-</section>
+            <h3>MyProject</h3>
+            <p>Description...</p>
 
-<div class="stats">
+        </div>
+        -->
 
-<div class="stat">
-<h2>Cloud</h2>
-<div>GCP • AWS • Azure</div>
-</div>
+    </section>
 
-<div class="stat">
-<h2>AI</h2>
-<div>LLMs • Agents • Automation</div>
-</div>
-
-<div class="stat">
-<h2>DevOps</h2>
-<div>Kubernetes • Terraform • GitOps</div>
-</div>
-
-</div>
-
-<h2 class="section-title">Projects</h2>
-
-<div class="grid" id="projects">
-
-<div class="card" data-name="Neyyar" onclick="openProject('Neyyar')">
-<div class="icon">🚀</div>
-<h3>Neyyar</h3>
-<p>
-Internal engineering platform.
-</p>
-<div class="open">
-Open →
-</div>
-</div>
-
-<!-- Duplicate cards as needed -->
-
-</div>
-
-<footer>
-© 2026 SELA Engineering • Internal Developer Portal
-</footer>
+    <footer>
+        SELA Engineering • GitHub Pages
+    </footer>
 
 </div>
 
 <script>
 
-function openProject(name){
-    window.location.href="/projects/"+name+"/";
+//
+// Automatically detects the GitHub repository name.
+//
+// Example:
+//
+// https://user.github.io/sela-projects/
+//               ^^^^^^^^^^^^^
+//
+// BASE becomes "/sela-projects"
+//
+const parts = window.location.pathname.split("/");
+const BASE = parts.length > 1 ? "/" + parts[1] : "";
+
+function openProject(project) {
+    window.location.href = `${BASE}/projects/${project}/`;
 }
 
-const input=document.getElementById("search");
+document
+.getElementById("search")
+.addEventListener("input", function () {
 
-input.addEventListener("input",function(){
+    const value = this.value.toLowerCase();
 
-const value=this.value.toLowerCase();
+    document
+    .querySelectorAll(".project")
+    .forEach(project => {
 
-document.querySelectorAll(".card").forEach(card=>{
+        const visible =
+            project.dataset.name
+                .toLowerCase()
+                .includes(value);
 
-const show=card.dataset.name.toLowerCase().includes(value);
+        project.classList.toggle("hidden", !visible);
 
-card.style.display=show?"block":"none";
+    });
 
 });
 
-});
-
-// URL Router
-// Visiting:
-// https://domain.com/Neyyar
-// automatically redirects to
-// /projects/Neyyar/
-
-(function(){
-
-const path=window.location.pathname.replace(/^\/|\/$/g,"");
-
-if(path && !path.startsWith("projects") && !path.endsWith(".html")){
-
-window.location.replace("/projects/"+path+"/");
-
-}
-
-})();
+// IMPORTANT:
+// GitHub Pages does NOT support rewriting
+// "/Neyyar" -> "/projects/Neyyar"
+//
+// Therefore, NO automatic redirect is performed here.
+// Navigation should happen through the project cards.
 
 </script>
 
